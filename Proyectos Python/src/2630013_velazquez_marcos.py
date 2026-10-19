@@ -1,5 +1,5 @@
 # ============================================================
-# Actividad: Manejo de Listas, Tuplas y Diccionarios en Python
+# Actividad: Manejo de listas y tuplas en Python
 # Estudiante: Velazquez Marcos
 # Matrícula: 2630013
 # Grupo: [ESCRIBE TU GRUPO]
@@ -8,25 +8,23 @@
 
 # RESUMEN DE LA INVESTIGACIÓN
 # Una lista es una colección ordenada y modificable que puede almacenar varios valores.
-# Una tupla es una colección ordenada e inmutable, útil para datos fijos como las coordenadas.
-# Un diccionario almacena pares clave-valor y permite recuperar datos mediante claves descriptivas.
-# Modificable significa que una colección puede cambiar después de crearse; inmutable significa que no puede cambiarse.
-# Este programa contiene seis problemas prácticos que utilizan listas, tuplas y diccionarios.
-# Cada problema documenta sus entradas, salidas, validaciones y pruebas normales, límite y de error.
-# La validación de entradas evita cálculos incorrectos y fallos inesperados por datos no válidos.
-# Los ejemplos abarcan artículos de compra, coordenadas, productos, calificaciones, frecuencia de palabras y contactos.
+# Una tupla es una colección ordenada e inmutable, útil para agrupar datos relacionados.
+# Las listas permiten agregar, quitar, recorrer y buscar elementos.
+# Las tuplas sirven para representar datos agrupados, como coordenadas o registros sencillos.
+# Este programa contiene seis ejercicios prácticos que utilizan únicamente listas y tuplas.
+# Cada ejercicio documenta sus entradas, salidas, validaciones y pruebas normales, límite y de error.
+# La validación de entradas ayuda a evitar cálculos incorrectos y fallos por datos no válidos.
 
 # BUENAS PRÁCTICAS
-# Utiliza listas cuando sea necesario agregar o quitar elementos con frecuencia.
-# Utiliza tuplas para datos que deben permanecer fijos, como las coordenadas.
-# Utiliza diccionarios cuando necesites encontrar información mediante una clave, como un nombre o código de producto.
-# Evita modificar una lista mientras la recorres, salvo que sea intencional.
-# Utiliza claves descriptivas en los diccionarios, nombres claros para las variables y mensajes de salida comprensibles.
-# Valida los datos antes de procesarlos y verifica que las colecciones no estén vacías antes de calcular estadísticas.
+# Usa listas cuando necesites agregar o quitar elementos.
+# Usa tuplas para agrupar datos relacionados que se manejan como una unidad.
+# Valida los datos antes de procesarlos y comprueba que las listas no estén vacías.
+# Utiliza nombres claros para las variables y mensajes de salida comprensibles.
+
 
 def run_problem_1():
     """Crea una lista de compras, agrega un artículo y busca un elemento."""
-    print("\n=== Problema 1: Fundamentos de listas de compras ===")
+    print("\n=== Problema 1: Lista de compras ===")
     initial_items_text = input("Escribe los artículos separados por comas: ").strip()
     new_item = input("Escribe un artículo nuevo: ").strip()
     search_item = input("Escribe el artículo que deseas buscar: ").strip()
@@ -48,7 +46,7 @@ def run_problem_1():
 
 
 def run_problem_2():
-    """Calcula la distancia euclidiana y el punto medio entre dos puntos."""
+    """Calcula la distancia euclidiana y el punto medio entre dos puntos guardados en tuplas."""
     print("\n=== Problema 2: Puntos y distancias con tuplas ===")
     try:
         x1 = float(input("Escribe x1: ").strip())
@@ -70,9 +68,9 @@ def run_problem_2():
 
 
 def run_problem_3():
-    """Busca el precio de un producto y calcula el costo total de la compra."""
+    """Busca el precio de un producto en una lista de tuplas y calcula el total."""
     print("\n=== Problema 3: Catálogo de productos ===")
-    product_prices = {"manzana": 10.0, "pan": 25.5, "leche": 32.0}
+    product_prices = [("manzana", 10.0), ("pan", 25.5), ("leche", 32.0)]
     product_name = input("Escribe el nombre del producto: ").strip().casefold()
     quantity_text = input("Escribe la cantidad: ").strip()
 
@@ -87,11 +85,16 @@ def run_problem_3():
     if quantity <= 0:
         print("Error: la cantidad debe ser mayor que cero")
         return
-    if product_name not in product_prices:
+
+    unit_price = None
+    for item_name, item_price in product_prices:
+        if item_name == product_name:
+            unit_price = item_price
+            break
+    if unit_price is None:
         print("Error: producto no encontrado")
         return
 
-    unit_price = product_prices[product_name]
     total_price = unit_price * quantity
     print("Precio unitario:", f"{unit_price:.2f}")
     print("Cantidad:", quantity)
@@ -99,41 +102,45 @@ def run_problem_3():
 
 
 def run_problem_4():
-    """Calcula el promedio de un estudiante y determina si aprobó."""
+    """Calcula el promedio de un estudiante a partir de una lista de tuplas."""
     print("\n=== Problema 4: Calificaciones de estudiantes ===")
-    grades = {
-        "ana": [90.0, 85.0, 88.0],
-        "benito": [65.0, 70.0, 68.0],
-        "chloe": [100.0, 95.0, 98.0],
-    }
+    student_grades = [
+        ("ana", [90.0, 85.0, 88.0]),
+        ("benito", [65.0, 70.0, 68.0]),
+        ("chloe", [100.0, 95.0, 98.0]),
+    ]
     student_name = input("Escribe el nombre del estudiante: ").strip().casefold()
     if not student_name:
         print("Error: entrada no válida")
         return
-    if student_name not in grades:
+
+    grades_list = None
+    for saved_name, saved_grades in student_grades:
+        if saved_name == student_name:
+            grades_list = saved_grades
+            break
+    if grades_list is None:
         print("Error: estudiante no encontrado")
         return
-
-    student_grades = grades[student_name]
-    if not student_grades:
+    if not grades_list:
         print("Error: no hay calificaciones disponibles")
         return
-    average = sum(student_grades) / len(student_grades)
+
+    average = sum(grades_list) / len(grades_list)
     is_passed = average >= 70.0
-    print("Calificaciones:", student_grades)
+    print("Calificaciones:", grades_list)
     print("Promedio:", round(average, 2))
     print("Aprobó:", str(is_passed).lower())
 
 
 def run_problem_5():
-    """Cuenta las palabras de una oración y muestra la más frecuente."""
-    print("\n=== Problema 5: Contador de frecuencia de palabras ===")
+    """Cuenta las palabras de una oración utilizando una lista de tuplas."""
+    print("\n=== Problema 5: Frecuencia de palabras ===")
     sentence = input("Escribe una oración: ").strip()
     if not sentence:
         print("Error: entrada no válida")
         return
 
-    # Elimina los signos de puntuación más comunes antes de separar las palabras; conserva los apóstrofos dentro de ellas.
     normalized_sentence = sentence.lower()
     for punctuation in ".,!?;:()[]{}\"":
         normalized_sentence = normalized_sentence.replace(punctuation, "")
@@ -142,21 +149,38 @@ def run_problem_5():
         print("Error: no se encontraron palabras")
         return
 
-    freq_dict = {}
+    word_counts = []
     for word in words_list:
-        freq_dict[word] = freq_dict.get(word, 0) + 1
-    most_common_word = max(freq_dict, key=freq_dict.get)
+        found_word = False
+        for index, (saved_word, count) in enumerate(word_counts):
+            if saved_word == word:
+                word_counts[index] = (saved_word, count + 1)
+                found_word = True
+                break
+        if not found_word:
+            word_counts.append((word, 1))
+
+    most_common_word, highest_count = word_counts[0]
+    for word, count in word_counts:
+        if count > highest_count:
+            most_common_word, highest_count = word, count
+
     print("Lista de palabras:", words_list)
-    print("Frecuencias:", freq_dict)
+    print("Frecuencias (palabra, cantidad):", word_counts)
     print("Palabra más frecuente:", most_common_word)
+    print("Veces que aparece:", highest_count)
 
 
 def run_problem_6():
-    """Agrega, busca o elimina un contacto en un diccionario."""
+    """Agrega, busca o elimina contactos almacenados en una lista de tuplas."""
     print("\n=== Problema 6: Agenda de contactos ===")
-    contacts = {"Ana": "5551234567", "Benito": "5557654321", "Carla": "5551112233"}
+    contacts = [
+        ("Ana", "5551234567"),
+        ("Benito", "5557654321"),
+        ("Carla", "5551112233"),
+    ]
     action_text = input("Escribe la acción (AGREGAR, BUSCAR, ELIMINAR): ").strip().upper()
-    if action_text not in {"AGREGAR", "BUSCAR", "ELIMINAR"}:
+    if action_text not in ("AGREGAR", "BUSCAR", "ELIMINAR"):
         print("Error: acción no válida")
         return
 
@@ -165,105 +189,104 @@ def run_problem_6():
         print("Error: entrada no válida")
         return
 
-    # Compara los nombres sin distinguir mayúsculas de minúsculas y conserva el formato guardado.
-    existing_name = next((contact_name for contact_name in contacts
-                          if contact_name.casefold() == name.casefold()), None)
+    contact_index = None
+    for index, (contact_name, phone) in enumerate(contacts):
+        if contact_name.casefold() == name.casefold():
+            contact_index = index
+            break
 
     if action_text == "AGREGAR":
         phone = input("Escribe el número telefónico: ").strip()
         if not phone:
             print("Error: entrada no válida")
             return
-        if existing_name is not None:
-            contacts[existing_name] = phone
-            saved_name = existing_name
+        if contact_index is not None:
+            contacts[contact_index] = (contacts[contact_index][0], phone)
+            saved_name = contacts[contact_index][0]
         else:
-            contacts[name] = phone
+            contacts.append((name, phone))
             saved_name = name
-        print("Contacto guardado:", saved_name, contacts[saved_name])
+        print("Contacto guardado:", saved_name)
+        print("Teléfono:", phone)
     elif action_text == "BUSCAR":
-        if existing_name is None:
+        if contact_index is None:
             print("Error: contacto no encontrado")
         else:
-            print("Teléfono:", contacts.get(existing_name))
-    else:  # ELIMINAR
-        if existing_name is None:
+            print("Teléfono:", contacts[contact_index][1])
+    else:
+        if contact_index is None:
             print("Error: contacto no encontrado")
         else:
-            contacts.pop(existing_name)
-            print("Contacto eliminado:", existing_name)
+            removed_contact = contacts.pop(contact_index)
+            print("Contacto eliminado:", removed_contact[0])
 
 
 # ============================================================
 # DOCUMENTACIÓN DE LOS PROBLEMAS, ENTRADAS, SALIDAS, VALIDACIONES Y PRUEBAS
-# Problema 1: Fundamentos de listas de compras
-# Descripción: procesa una lista de compras separada por comas, agrega un artículo
-# y comprueba si el artículo solicitado se encuentra en la lista.
-# Entradas: initial_items_text (texto separado por comas), new_item y search_item.
-# Salidas: lista de artículos, cantidad total y resultado de búsqueda (verdadero/falso).
-# Validaciones: los textos no deben estar vacíos; se ignoran elementos vacíos y
-# se rechaza una lista que quede sin artículos.
+#
+# Problema 1: Lista de compras
+# Descripción: procesa una lista separada por comas, agrega un artículo y busca otro.
+# Entradas: initial_items_text, new_item y search_item.
+# Salidas: lista de artículos, cantidad y resultado de búsqueda.
+# Validaciones: los textos no deben estar vacíos y la lista debe contener artículos.
 # Pruebas: normal: "manzana, plátano", agregar "naranja", buscar "MANZANA" -> encontrado, 3 artículos.
 # Límite: "manzana", agregar "pera", buscar "pera" -> encontrado, 2 artículos.
 # Error: lista inicial vacía -> entrada no válida.
 #
 # Problema 2: Puntos y distancias con tuplas
-# Descripción: almacena dos puntos bidimensionales en tuplas, calcula la distancia
-# euclidiana y encuentra el punto medio.
-# Entradas: x1, y1, x2 y y2 como valores numéricos convertibles a float.
-# Salidas: punto A, punto B, distancia y punto medio.
+# Descripción: guarda dos puntos como tuplas, calcula distancia y punto medio.
+# Entradas: x1, y1, x2 y y2 como números.
+# Salidas: puntos, distancia y punto medio.
 # Validaciones: las cuatro entradas deben poder convertirse a float.
 # Pruebas: normal: (0, 0) y (3, 4) -> distancia 5 y punto medio (1.5, 2.0).
 # Límite: dos puntos iguales -> distancia 0. Error: x1="abc" -> entrada no válida.
 #
 # Problema 3: Catálogo de productos
-# Descripción: busca un producto en un diccionario y calcula el costo total.
-# Entradas: product_name y quantity. Salidas: precio unitario, cantidad y total.
-# Validaciones: el nombre no debe estar vacío, la cantidad debe ser un entero mayor que 0
-# y el producto debe existir en el catálogo.
+# Descripción: busca el precio en una lista de tuplas (producto, precio) y calcula el costo.
+# Entradas: product_name y quantity.
+# Salidas: precio unitario, cantidad y total.
+# Validaciones: nombre no vacío, cantidad entera mayor que cero y producto existente.
 # Pruebas: normal: manzana, cantidad 3 -> total 30.00. Límite: leche, cantidad 1 -> 32.00.
 # Error: cantidad 0 -> mensaje de cantidad no válida.
 #
 # Problema 4: Calificaciones de estudiantes
-# Descripción: obtiene las calificaciones, calcula el promedio y verifica si alcanza 70.
+# Descripción: busca un estudiante en una lista de tuplas y calcula el promedio.
 # Entradas: student_name. Salidas: calificaciones, promedio y resultado de aprobación.
-# Validaciones: el nombre no debe estar vacío, el estudiante debe existir y debe tener calificaciones.
+# Validaciones: nombre no vacío, estudiante existente y lista de calificaciones no vacía.
 # Pruebas: normal: "ana" -> promedio 87.67, aprobó. Límite: "benito" -> promedio 67.67, no aprobó.
 # Error: "nadie" -> estudiante no encontrado.
 #
-# Problema 5: Contador de frecuencia de palabras
-# Descripción: normaliza una oración, elimina signos de puntuación comunes y cuenta las palabras.
-# Entradas: sentence. Salidas: lista de palabras, frecuencias y palabra más frecuente.
-# Validaciones: la oración no debe estar vacía y debe producir al menos una palabra.
+# Problema 5: Frecuencia de palabras
+# Descripción: limpia una oración, separa las palabras y cuenta las apariciones con una lista de tuplas.
+# Entradas: sentence. Salidas: palabras, pares (palabra, cantidad) y palabra más frecuente.
+# Validaciones: la oración debe contener al menos una palabra después de quitar puntuación común.
 # Pruebas: normal: "Rojo azul rojo" -> rojo aparece dos veces. Límite: "¡Hola!" -> una palabra.
-# Error: "!!!" -> no se encontraron palabras. Se eliminan signos comunes y se conservan apóstrofos.
+# Error: "!!!" -> no se encontraron palabras.
 #
 # Problema 6: Agenda de contactos
-# Descripción: agrega o actualiza contactos, busca teléfonos o elimina contactos mediante un diccionario.
-# Entradas: action_text, name y phone únicamente al agregar.
-# Salidas: confirmación de contacto guardado, teléfono, confirmación de eliminación o error.
-# Validaciones: la acción debe ser AGREGAR, BUSCAR o ELIMINAR; el nombre no debe estar vacío;
-# el teléfono es obligatorio al agregar y el contacto debe existir para buscar o eliminar.
+# Descripción: agrega, busca o elimina contactos almacenados como tuplas dentro de una lista.
+# Entradas: action_text, name y phone al agregar.
+# Salidas: confirmación, teléfono o mensaje de error.
+# Validaciones: acción permitida, nombre no vacío, teléfono obligatorio al agregar y contacto existente al buscar/eliminar.
 # Pruebas: normal: agregar Diana con teléfono 5550001111. Límite: buscar Ana -> 5551234567.
 # Error: eliminar a Nadie -> contacto no encontrado.
-
-# ============================================================
+#
 # PUNTO DE ENTRADA DEL PROGRAMA
 # ============================================================
 
 def main():
-    """Muestra un menú para ejecutar cada problema por separado."""
-    problem_functions = {
-        "1": run_problem_1,
-        "2": run_problem_2,
-        "3": run_problem_3,
-        "4": run_problem_4,
-        "5": run_problem_5,
-        "6": run_problem_6,
-    }
+    """Muestra un menú para ejecutar cada ejercicio."""
+    problem_functions = [
+        ("1", run_problem_1),
+        ("2", run_problem_2),
+        ("3", run_problem_3),
+        ("4", run_problem_4),
+        ("5", run_problem_5),
+        ("6", run_problem_6),
+    ]
     while True:
-        print("\n=== Práctica de colecciones en Python ===")
-        print("1. Shopping list")
+        print("\n=== Práctica de listas y tuplas en Python ===")
+        print("1. Lista de compras")
         print("2. Puntos y distancias")
         print("3. Catálogo de productos")
         print("4. Calificaciones")
@@ -274,7 +297,11 @@ def main():
         if choice == "0":
             print("¡Hasta luego!")
             break
-        selected_problem = problem_functions.get(choice)
+        selected_problem = None
+        for problem_number, problem_function in problem_functions:
+            if problem_number == choice:
+                selected_problem = problem_function
+                break
         if selected_problem is None:
             print("Error: entrada no válida")
         else:
@@ -286,21 +313,20 @@ if __name__ == "__main__":
 
 # ============================================================
 # CONCLUSIONES
-# Las listas son útiles cuando las colecciones necesitan crecer, reducirse o reordenarse.
-# Las tuplas representan grupos fijos de valores y comunican que los datos no deberían cambiar.
-# Los diccionarios permiten buscar información por clave y son útiles para catálogos y agendas.
-# Combinar diccionarios con listas permite almacenar varias calificaciones por estudiante.
-# Recorrer una lista permite crear resúmenes útiles, como diccionarios de frecuencia de palabras.
-# Validar los datos de entrada ayuda a evitar errores por cantidades no válidas o nombres faltantes.
-# Elegir la colección adecuada hace que el programa sea más claro y fácil de mantener.
-
+# Las listas son útiles para colecciones que necesitan agregarse, quitarse o recorrerse.
+# Las tuplas agrupan datos relacionados, como coordenadas o registros de productos.
+# Una lista de tuplas permite organizar catálogos, calificaciones y contactos sin usar estructuras adicionales.
+# Recorrer listas permite buscar elementos y calcular estadísticas.
+# Validar las entradas ayuda a evitar errores por datos vacíos o valores no válidos.
+# Elegir estructuras simples y nombres claros facilita la lectura y el mantenimiento del programa.
+#
 # REFERENCIAS
 # 1) Python Software Foundation. (s. f.). Tipos integrados. https://docs.python.org/3/library/stdtypes.html
 # 2) Python Software Foundation. (s. f.). Estructuras de datos. https://docs.python.org/3/tutorial/datastructures.html
 # 3) Python Software Foundation. (s. f.). Más información sobre listas. https://docs.python.org/3/tutorial/datastructures.html#more-on-lists
-# 4) Python Software Foundation. (s. f.). Diccionarios. https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+# 4) Python Software Foundation. (s. f.). Tuplas y secuencias. https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences
 # 5) Python Software Foundation. (s. f.). Errores y excepciones. https://docs.python.org/3/tutorial/errors.html
 # 6) Python Software Foundation. (s. f.). Entrada y salida. https://docs.python.org/3/tutorial/inputoutput.html
 #
 # REPOSITORIO DE GITHUB
-# Agrega aquí la URL del repositorio después de subir este archivo a GitHub.
+# https://github.com/sevakulai/practica-git-sebastian-velazquez
