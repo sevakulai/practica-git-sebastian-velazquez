@@ -2,7 +2,7 @@
 # Actividad: Manejo de listas y tuplas en Python
 # Estudiante: Velazquez Marcos
 # Matrícula: 2630013
-# Grupo: [ESCRIBE TU GRUPO]
+# Grupo: IM 1-1
 # Archivo: 2630013_velazquez_marcos.py
 # ============================================================
 
