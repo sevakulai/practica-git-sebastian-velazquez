@@ -1,5 +1,5 @@
 # Actividad: Manejo de strings en Python
-# Estudiante: Velazquez Marcos | Matrícula: 2630013 | Grupo: [ESCRIBE TU GRUPO]
+# Estudiante: Velazquez Marcos | Matrícula: 2630013 | Grupo: IM 1-1
 # Archivo: 2630013_velazquez_marcos_t_strings.py
 #
 # RESUMEN DE LA INVESTIGACIÓN
